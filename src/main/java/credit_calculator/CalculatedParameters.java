@@ -2,18 +2,24 @@ package credit_calculator;
 
 import java.math.BigDecimal;
 
-public class CalculationParameters {
+public class CalculatedParameters {
 
-    private double monthRate;
+    /**
+     * Ежемесячкная ставка
+     */
+    private double monthlyRate;
 
-    public double getMonthRate() {
-        return monthRate;
+    public double getMonthlyRate() {
+        return monthlyRate;
     }
 
-    public void setMonthRate(double monthRate) {
-        this.monthRate = monthRate;
+    public void setMonthlyRate(double monthlyRate) {
+        this.monthlyRate = monthlyRate;
     }
 
+    /**
+     * Множитель наращения процента
+     */
     private BigDecimal growthFactor;
 
     public BigDecimal getGrowthFactor() {
@@ -24,6 +30,9 @@ public class CalculationParameters {
         this.growthFactor = growthFactor;
     }
 
+    /**
+     * Коэффициент аннуитета
+     */
     private Double annuityCoefficient;
 
     public Double getAnnuityCoefficient() {
@@ -34,10 +43,12 @@ public class CalculationParameters {
         this.annuityCoefficient = annuityCoefficient;
     }
 
+    /**
+     * Ежемесячный платеж
+     */
     private BigDecimal monthlyPayment;
 
     public BigDecimal getMonthlyPayment() {
-        System.out.println("Размер ежемесячного платежа: " + monthlyPayment);
         return monthlyPayment;
     }
 

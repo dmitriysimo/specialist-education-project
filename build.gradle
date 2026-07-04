@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'sim.dmitriy'
+group = 'slesarev.sergey'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,8 +10,16 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation platform('org.junit:junit-bom:6.0.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation 'com.codeborne:selenide:7.7.3'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.12'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
 
 test {
