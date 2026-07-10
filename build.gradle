@@ -2,24 +2,24 @@ plugins {
     id 'java'
 }
 
-group = 'slesarev.sergey'
+group = 'sim.dmitriy'
 version = '1.0-SNAPSHOT'
 
 repositories {
-    mavenCentral()
+    maven {
+        url 'https://mirror.kargadan.ir/repository/gradle-group/'
+    }
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation platform('org.junit:junit-bom:5.8.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    testImplementation 'com.codeborne:selenide:7.7.3'
+    testImplementation 'com.codeborne:selenide:6.19.1'
     testImplementation 'org.slf4j:slf4j-simple:2.0.12'
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }
 
 test {
