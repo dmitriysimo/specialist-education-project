@@ -49,6 +49,10 @@ public class AlertTest {
         switchTo().alert().sendKeys("Dmitriy");
         switchTo().alert().accept();
         sleep(2_000);
+        promptAlert.click();
+        switchTo().alert().sendKeys("Dima");
+        switchTo().alert().dismiss();
+        sleep(2_000);
     }
 
     @AfterEach
