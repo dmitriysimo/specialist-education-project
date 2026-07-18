@@ -32,7 +32,6 @@ public class AlertTest {
     @Test
     void waitForAlert() {
         timerAlert.click();
-        sleep(5_500);
         switchTo().alert().accept();
     }
 
@@ -49,11 +48,9 @@ public class AlertTest {
         promptAlert.click();
         switchTo().alert().sendKeys("Dmitriy");
         switchTo().alert().accept();
-        sleep(2_000);
         promptAlert.click();
         switchTo().alert().sendKeys("Dima");
         switchTo().alert().dismiss();
-        sleep(2_000);
     }
 
     @AfterEach
