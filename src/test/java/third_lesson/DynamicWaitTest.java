@@ -36,6 +36,5 @@ public class DynamicWaitTest {
         String bannerText = dynamicBanner.getText();
 
         Assertions.assertTrue(bannerText.contains(String.valueOf(time*1000)));
-
     }
 }
