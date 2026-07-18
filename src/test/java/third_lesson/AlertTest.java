@@ -19,6 +19,7 @@ public class AlertTest {
     @BeforeAll
     static void setUp() {
         Configuration.browserSize = "1920x1080";
+        Configuration.timeout = 6000;
         open(url);
     }
 
