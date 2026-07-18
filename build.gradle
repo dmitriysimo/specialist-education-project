@@ -6,9 +6,7 @@ group = 'sim.dmitriy'
 version = '1.0-SNAPSHOT'
 
 repositories {
-    maven {
-        url 'https://mirror.kargadan.ir/repository/gradle-group/'
-    }
+    mavenCentral()
 }
 
 dependencies {
