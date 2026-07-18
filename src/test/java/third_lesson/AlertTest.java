@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -23,18 +24,21 @@ public class AlertTest {
         open(url);
     }
 
+    @DisplayName("Простая проверка на закрытие алерта")
     @Test
     void simpleCloseAlert() {
         simpleAlert.click();
         switchTo().alert().accept();
     }
 
+    @DisplayName("Проверка ожидания алерта")
     @Test
     void waitForAlert() {
         timerAlert.click();
         switchTo().alert().accept();
     }
 
+    @DisplayName("Проверка алерта с подтверждением и отменой")
     @Test
     void confirmAlertTest() {
         confirmAlert.click();
@@ -43,6 +47,7 @@ public class AlertTest {
         switchTo().alert().dismiss();
     }
 
+    @DisplayName("Проверка алерта с вводом")
     @Test
     void promtAlertTest() {
         promptAlert.click();
@@ -52,6 +57,7 @@ public class AlertTest {
         switchTo().alert().sendKeys("Dima");
         switchTo().alert().dismiss();
     }
+
 
     @AfterEach
     void returnToDefault() {
