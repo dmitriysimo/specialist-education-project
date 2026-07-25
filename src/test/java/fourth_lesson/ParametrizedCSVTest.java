@@ -36,10 +36,10 @@ public class ParametrizedCSVTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "credentials.csv", numLinesToSkip = 1)
-    void simpleCheck(String username, String password) {
+    void simpleCheck(String username, String password, String initials) {
         setCredentialsAndLogin(username, password);
         logout.shouldBe(visible).shouldBe(interactable);
-        greeting.shouldHave(text("Добро пожаловать, " + username + "!"));
+        greeting.shouldHave(text("Добро пожаловать, " + initials + "!"));
     }
 
     @ParameterizedTest
