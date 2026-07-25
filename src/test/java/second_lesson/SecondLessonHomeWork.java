@@ -3,6 +3,7 @@ package second_lesson;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.By;
@@ -28,6 +29,7 @@ public class SecondLessonHomeWork {
        open(url);
     }
 
+    @Tag("Smoke")
     @ParameterizedTest
     @MethodSource("sumProvider")
     void calculationTest(int sum) {
