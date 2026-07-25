@@ -1,17 +1,69 @@
 package fourth_lesson;
 
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ParametrizedCSVTest {
 
-    String url = "https://slqamsk.github.io/cases/slflights/v01/";
+    static final String url = "https://slqamsk.github.io/cases/slflights/v01/";
 
     SelenideElement userNameInput = $("#username"),
-            passwordInput = $("#password"),
-            loginButton = $("#loginButton"),
-            greetingBar = $("#greeting");
-    ;
+                    passwordInput = $("#password"),
+                    loginButton = $("#loginButton"),
+                    greetingBar = $("#greeting"),
+                    logout = $("#logoutButton"),
+                    searchFlight = $("[onclick='findFlights()']"),
+                    registerButton = $(".register-btn"),
+                    passengerName=$("#passengerName"),
+                    passportNumber = $("#passportNumber"),
+                    passengerEmail = $("#email"),
+                    phoneNumber = $("#phoneNumber");
 
+
+    @BeforeAll
+    static void setup() {
+        open(url);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "credentials.csv", numLinesToSkip = 1)
+    void simpleCheck(String username, String password) {
+        setCredentialsAndLogin(username, password);
+        logout.shouldBe(visible).shouldBe(interactable);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "credentials_advanced.csv", numLinesToSkip = 1)
+    void advancedCheck(String username, String password, String name, String phone, String email, String passport) {
+        setCredentialsAndLogin(username, password);
+
+        sleep(2000);
+        searchFlight.click();
+
+        registerButton.click();
+
+        passengerName.shouldHave(text(name));
+        passportNumber.shouldHave(text(passport));
+        passengerEmail.shouldHave(text(email));
+        phoneNumber.shouldHave(text(phone));
+
+    }
+
+    void setCredentialsAndLogin(String username, String password) {
+        userNameInput.setValue(username);
+        passwordInput.setValue(password);
+        loginButton.click();
+    }
+
+    @AfterEach
+    void logout()
+    {
+        logout.click();
+    }
 }
