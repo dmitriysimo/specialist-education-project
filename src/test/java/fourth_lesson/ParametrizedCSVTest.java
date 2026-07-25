@@ -48,10 +48,8 @@ public class ParametrizedCSVTest {
         setCredentialsAndLogin(username, password);
 
         departureButton.selectOptionContainingText("Казань");
-
         arrivedButton.selectOptionContainingText("Нью-Йорк");
         searchFlight.click();
-
         registerButton.click();
 
         passengerName.shouldHave(text(name));
