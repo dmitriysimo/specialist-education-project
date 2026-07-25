@@ -2,7 +2,6 @@ package fourth_lesson;
 
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -24,7 +23,7 @@ public class ParametrizedCSVTest {
                     passengerName=$("#passengerName"),
                     passportNumber = $("#passportNumber"),
                     passengerEmail = $("#email"),
-                    phoneNumber = $("#phoneNumber"),
+                    phoneNumber = $("#phone"),
                     departureButton = $("#departureCity"),
                     arrivedButton = $("#arrivalCity");
 
@@ -45,7 +44,7 @@ public class ParametrizedCSVTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "credentials_advanced.csv", numLinesToSkip = 1)
-    void advancedCheck(String username, String password, String name, String phone, String email, String passport) {
+    void advancedCheck(String username, String password, String name, String passport, String email, String phone) {
         setCredentialsAndLogin(username, password);
 
         departureButton.selectOptionContainingText("Казань");
@@ -53,15 +52,10 @@ public class ParametrizedCSVTest {
         searchFlight.click();
         registerButton.click();
 
-        String passName = passengerName.getAttribute("value");
-        String passNumber = passportNumber.getAttribute("value");
-        String passMail = passengerEmail.getAttribute("value");
-        String phoneNumb = phoneNumber.getAttribute("value");
-
-        Assertions.assertEquals(name, passName);
-        Assertions.assertEquals(passNumber, passport);
-        Assertions.assertEquals(passMail, email);
-        Assertions.assertEquals(phoneNumb, phone);
+        passengerName.shouldHave(attribute("value", name));
+        passportNumber.shouldHave(attribute("value", passport));
+        passengerEmail.shouldHave(attribute("value", email));
+        phoneNumber.shouldHave(attribute("value", phone));
     }
 
     void setCredentialsAndLogin(String username, String password) {
