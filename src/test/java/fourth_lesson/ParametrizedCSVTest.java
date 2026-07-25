@@ -2,6 +2,7 @@ package fourth_lesson;
 
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -52,11 +53,15 @@ public class ParametrizedCSVTest {
         searchFlight.click();
         registerButton.click();
 
-        passengerName.shouldHave(text(name));
-        passportNumber.shouldHave(text(passport));
-        passengerEmail.shouldHave(text(email));
-        phoneNumber.shouldHave(text(phone));
+        String passName = passengerName.getAttribute("value");
+        String passNumber = passportNumber.getAttribute("value");
+        String passMail = passengerEmail.getAttribute("value");
+        String phoneNumb = phoneNumber.getAttribute("value");
 
+        Assertions.assertEquals(name, passName);
+        Assertions.assertEquals(passNumber, passport);
+        Assertions.assertEquals(passMail, email);
+        Assertions.assertEquals(phoneNumb, phone);
     }
 
     void setCredentialsAndLogin(String username, String password) {
