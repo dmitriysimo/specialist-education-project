@@ -16,14 +16,18 @@ public class ParametrizedCSVTest {
     SelenideElement userNameInput = $("#username"),
                     passwordInput = $("#password"),
                     loginButton = $("#loginButton"),
-                    greetingBar = $("#greeting"),
                     logout = $("#logoutButton"),
                     searchFlight = $("[onclick='findFlights()']"),
                     registerButton = $(".register-btn"),
                     passengerName=$("#passengerName"),
                     passportNumber = $("#passportNumber"),
                     passengerEmail = $("#email"),
-                    phoneNumber = $("#phoneNumber");
+                    phoneNumber = $("#phoneNumber"),
+                    departureButton = $("#departureCity"),
+                    optionKazan = $("option[value='kazan']"),
+                    arrivedButton = $("#arrivalCity"),
+                    optionNewYork = $("option[value='newyork']");
+
 
 
     @BeforeAll
@@ -43,7 +47,13 @@ public class ParametrizedCSVTest {
     void advancedCheck(String username, String password, String name, String phone, String email, String passport) {
         setCredentialsAndLogin(username, password);
 
-        sleep(2000);
+        departureButton.click();
+        sleep(5000);
+        optionKazan.click();
+
+        arrivedButton.click();
+        sleep(5000);
+        optionNewYork.click();
         searchFlight.click();
 
         registerButton.click();
