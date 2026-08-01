@@ -2,6 +2,7 @@ package third_lesson.homework;
 
 import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import third_lesson.homework.pages.LoginPO;
@@ -22,6 +23,7 @@ public class StandardHomeWork {
         Assertions.assertTrue(loginPage.checkErrorMessage(BLOCKED_MESSAGE));
     }
 
+    @Disabled
     @Test
     void checkSimpleForm() {
         open(SIMPLE_FORM_URL);

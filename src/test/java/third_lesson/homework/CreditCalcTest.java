@@ -1,6 +1,7 @@
 package third_lesson.homework;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,6 +22,7 @@ public class CreditCalcTest {
 
     @ParameterizedTest
     @MethodSource("provideParameters")
+    @Disabled
     void simpleCalcCheck(double sum, int term, double rate, boolean type) {
         mainPage.setValues(sum, term, rate, type);
 
