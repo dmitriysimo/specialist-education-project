@@ -2,13 +2,14 @@ package fourth_lesson.home_work.authorization;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Registry {
 
-    private ArrayList<User> users;
+    private List<User> users;
 
-    public Registry(ArrayList<User> users) {
-        this.users = users;
+    public Registry(List<User> users) {
+        this.users = new ArrayList<>(users);
     }
 
     public void addUser(User user) {
@@ -33,8 +34,8 @@ public class Registry {
         for (User user : users) {
             results.add(user.checkAuth(username, password));
         }
-        if (results.contains("Dlocked")) {
-            return "Dlocked";
+        if (results.contains("Blocked")) {
+            return "Blocked";
         }
 
         if (results.contains("FailedAuth")) {
