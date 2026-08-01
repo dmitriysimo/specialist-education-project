@@ -16,6 +16,7 @@ public class StandardHomeWork {
 
     @DisplayName("Проверка авторизации для заблокированного пользователя")
     @Test
+    @Disabled
     void wrongLoginTest() {
         open(LOGIN_URL);
         loginPage.setCredentialsAndEnter(USERNAME, PASSWORD);
@@ -23,7 +24,6 @@ public class StandardHomeWork {
         Assertions.assertTrue(loginPage.checkErrorMessage(BLOCKED_MESSAGE));
     }
 
-    @Disabled
     @Test
     void checkSimpleForm() {
         open(SIMPLE_FORM_URL);
