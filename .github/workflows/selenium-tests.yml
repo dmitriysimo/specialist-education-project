@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pages: write
   id-token: write
+  pages: write
+  contents: write
 
 jobs:
   run-autotests:
@@ -25,27 +25,26 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '25'
           distribution: 'temurin'
 
       - name: Run tests
         run: ./gradlew clean test -Dselenide.headless=true
         continue-on-error: true
 
-      - name: Generate Allure Report
-        if: always() # Запускать, даже если тесты упали
-        run: |
-          mkdir -p build/allure-results
-          mkdir -p allure-report
-          
-          chmod -R 777 build/allure-results allure-report
-          
-          docker run --rm \
-            -v "$(pwd)/build/allure-results:/allure-results" \
-            -v "$(pwd)/allure-report:/allure-report" \
-            allure-framework/allure:latest \
-            generate /allure-results -o /allure-report --clean
 
+      # Установка Allure CLI (фиксированная версия 2.30.0)
+      - name: Install Allure
+        run: |
+          wget -qO allure.zip https://github.com/allure-framework/allure2/releases/download/2.30.0/allure-2.30.0.zip
+          unzip -q allure.zip
+          sudo mv allure-2.30.0 /opt/allure
+          sudo ln -sf /opt/allure/bin/allure /usr/local/bin/allure
+
+      # Генерация отчёта из результатов тестов
+      - name: Generate Allure Report
+        run: |
+          allure generate build/allure-results -o allure-report --clean
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -58,4 +57,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
