@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
-  pages: write
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   run-autotests:
@@ -33,14 +33,15 @@ jobs:
         continue-on-error: true
 
       - name: Allure Report
-        uses: simple-elf/allure-report-action@v1.7
+        uses: simple-elf/allure-report-action@v1.9 # Рекомендуется обновить версию экшена
+        if: always() # Отчет должен генерироваться даже если тесты упали
         with:
           allure_results: "build/allure-results"
           allure_report: "allure-report"
           gh_pages: "true"
-          subfolder: ""
           keep_reports: "10"
-          report_url: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Setup Pages
