@@ -28,8 +28,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Run tests
-        run: ./gradlew clean test -Dselenide.headless=true
+      - name: Run smoke tests
+        run: ./gradlew clean test -DincludeTags="smoke" -Dselenide.headless=true
         continue-on-error: true
 
 

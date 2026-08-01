@@ -2,6 +2,7 @@ package fifth_lesson;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
@@ -17,6 +18,7 @@ public class ShopListTest {
         page.openStartPage(url);
     }
 
+    @Tag("smoke")
     @ParameterizedTest
     @CsvFileSource(resources = "new items.csv", numLinesToSkip = 1)
     void positiveCheckNewItemCreate(String name, Boolean isNavigate) {
@@ -28,6 +30,7 @@ public class ShopListTest {
         );
     }
 
+    @Tag("smoke")
     @ParameterizedTest
     @CsvFileSource(resources = "wrong items.csv", numLinesToSkip = 1)
     void negativeCheckNewItemCreate(String name, String errorText) {
@@ -37,6 +40,7 @@ public class ShopListTest {
         Assertions.assertTrue(page.getErrorMessage().contains(errorText), "Сообщение об ошибке не соответствует ожидаемому"));
     }
 
+    @Tag("smoke")
     @ParameterizedTest
     @CsvFileSource(resources = "edited item names.csv", numLinesToSkip = 1)
     void editCheckNewItemCreate(String name, String newName) {
