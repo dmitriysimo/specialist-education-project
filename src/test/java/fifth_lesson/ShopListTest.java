@@ -19,6 +19,8 @@ public class ShopListTest {
 
     @BeforeAll
     static void setUp() {
+
+        Configuration.headless = true;
         Configuration.browserCapabilities.setCapability("goog:chromeOptions", Map.of(
                 "args", List.of(
                         "--no-sandbox",
