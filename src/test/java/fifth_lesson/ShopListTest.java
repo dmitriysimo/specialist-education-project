@@ -1,6 +1,5 @@
 package fifth_lesson;
 
-import io.qameta.allure.model.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,7 +23,9 @@ public class ShopListTest {
         page.addNewItem(name, isNavigate);
         page.checkNewItemAdding(name);
 
-        System.out.println("Продукт " + name + "  успешно добавлен");
+        step("Проверка наличия товара в списке доступных товаров", () ->
+            Assertions.assertTrue(page.isItemPresent(name), "Товар не найден")
+        );
     }
 
     @ParameterizedTest
@@ -39,14 +40,13 @@ public class ShopListTest {
     @CsvFileSource(resources = "edited item names.csv", numLinesToSkip = 1)
     void editCheckNewItemCreate(String name, String newName) {
         page.addNewItem(name, true);
-        step("Изменение названия товара на новое ", () -> {
-        page.editItem(name, newName);}
+        step("Изменение названия товара на новое ", () ->
+        page.editItem(name, newName)
         );
 
-
-        step("Проверка нового названия", () -> {
-            Assertions.assertTrue(page.isItemPresent(newName), "Товар не найден");
-        });
+        step("Проверка нового названия", () ->
+            Assertions.assertTrue(page.isItemPresent(newName), "Товар не найден")
+        );
     }
 
 }
