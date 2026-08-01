@@ -17,7 +17,7 @@ allure {
     }
 }
 
-group = 'slesarev.sergey'
+group = 'sim.dmitriy'
 version = '1.0-SNAPSHOT'
 
 repositories {

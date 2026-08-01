@@ -1,10 +1,14 @@
 package fifth_lesson;
 
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+
+import java.util.List;
+import java.util.Map;
 
 import static io.qameta.allure.Allure.step;
 
@@ -15,6 +19,13 @@ public class ShopListTest {
 
     @BeforeAll
     static void setUp() {
+        Configuration.browserCapabilities.setCapability("goog:chromeOptions", Map.of(
+                "args", List.of(
+                        "--no-sandbox",
+                        "--disable-dev-shm-usage",
+                        "--disable-gpu"
+                )
+        ));
         page.openStartPage(url);
     }
 
@@ -22,6 +33,7 @@ public class ShopListTest {
     @ParameterizedTest
     @CsvFileSource(resources = "new items.csv", numLinesToSkip = 1)
     void positiveCheckNewItemCreate(String name, Boolean isNavigate) {
+
         page.addNewItem(name, isNavigate);
         page.checkNewItemAdding(name);
 
