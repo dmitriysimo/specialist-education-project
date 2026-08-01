@@ -32,16 +32,13 @@ jobs:
         run: ./gradlew clean test -Dselenide.headless=true
         continue-on-error: true
 
-      - name: Allure Report
-        uses: simple-elf/allure-report-action@v1.9 # Рекомендуется обновить версию экшена
-        if: always() # Отчет должен генерироваться даже если тесты упали
-        with:
-          allure_results: "build/allure-results"
-          allure_report: "allure-report"
-          gh_pages: "true"
-          keep_reports: "10"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate Allure Report
+        run: |
+          docker run --rm \
+            -v "$(pwd)/build/allure-results:/allure-results" \
+            -v "$(pwd)/allure-report:/allure-report" \
+            allure-framework/allure:latest \
+            generate /allure-results -o /allure-report --clean
 
 
       - name: Setup Pages
