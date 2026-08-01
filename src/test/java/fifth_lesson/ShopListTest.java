@@ -33,7 +33,8 @@ public class ShopListTest {
     void negativeCheckNewItemCreate(String name, String errorText) {
         page.validateItemName(name);
 
-        Assertions.assertTrue(page.getErrorMessage().contains(errorText), "Сообщение об ошибке не соответствует ожидаемому");
+        step("Проверка отображения ошибки " + errorText, () ->
+        Assertions.assertTrue(page.getErrorMessage().contains(errorText), "Сообщение об ошибке не соответствует ожидаемому"));
     }
 
     @ParameterizedTest
