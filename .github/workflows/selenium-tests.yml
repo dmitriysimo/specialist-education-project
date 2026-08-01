@@ -33,7 +33,13 @@ jobs:
         continue-on-error: true
 
       - name: Generate Allure Report
+        if: always() # Запускать, даже если тесты упали
         run: |
+          mkdir -p build/allure-results
+          mkdir -p allure-report
+          
+          chmod -R 777 build/allure-results allure-report
+          
           docker run --rm \
             -v "$(pwd)/build/allure-results:/allure-results" \
             -v "$(pwd)/allure-report:/allure-report" \
