@@ -1,9 +1,12 @@
 package fifth_lesson;
 
+import io.qameta.allure.model.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+
+import static io.qameta.allure.Allure.step;
 
 public class ShopListTest {
 
@@ -36,9 +39,14 @@ public class ShopListTest {
     @CsvFileSource(resources = "edited item names.csv", numLinesToSkip = 1)
     void editCheckNewItemCreate(String name, String newName) {
         page.addNewItem(name, true);
-        page.editItem(name,newName);
+        step("Изменение названия товара на новое ", () -> {
+        page.editItem(name, newName);}
+        );
 
-        Assertions.assertTrue(page.isItemPresent(newName), "Товар не найден");
-        }
+
+        step("Проверка нового названия", () -> {
+            Assertions.assertTrue(page.isItemPresent(newName), "Товар не найден");
+        });
+    }
 
 }
